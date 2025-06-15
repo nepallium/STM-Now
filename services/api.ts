@@ -1,19 +1,17 @@
 import GtfsRealtimeBindings from "gtfs-realtime-bindings";
-
-const API_KEY = process.env.STM_API_KEY;
+// @ts-ignore
+import { API_KEY } from "@env"
 
 export const STM_CONFIG = {
     BASE_URL: 'https://api.stm.info/pub/od/gtfs-rt/ic/v2',
     API_KEY,
     headers: {
         accept: 'application/x-protobuf',
-        apiKey: API_KEY,
+        apiKey: `${API_KEY}`,
     }
 }
 
 export const fetchVehiclePositions = async () => {
-
-    console.log("API: " + API_KEY)
     const endpoint = `${STM_CONFIG.BASE_URL}/vehiclePositions`
 
     const response = await fetch(endpoint, {
