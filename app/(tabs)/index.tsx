@@ -9,6 +9,7 @@ const index = () => {
 
     // BASE OBJECT : vehiclePositionsData & tripUpdatesData
     // OBJECT.entity gives an array of all buses (use array indexing to access one object, ex: OBJECT.entity[0])
+    // TEST
 
     const {
         data: tripUpdatesData,
@@ -24,7 +25,7 @@ const index = () => {
 
     console.log(tripUpdatesData?.entity[0]);
 
-    vehiclePositionsData?.entity.forEach((busTrip) => {
+    vehiclePositionsData?.entity.forEach((busTrip : any) => {
         if (busTrip.vehicle?.trip?.routeId === '51') {
             console.log(busTrip.vehicle?.position);
         }
