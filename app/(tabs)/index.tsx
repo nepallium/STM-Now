@@ -1,0 +1,45 @@
+import { View, Text } from 'react-native'
+import React from 'react'
+import { useRouter } from 'expo-router'
+import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
+import useFetch from '@/services/useFetch';
+
+const index = () => {
+    const router = useRouter();
+
+    // BASE OBJECT : vehiclePositionsData & tripUpdatesData
+    // OBJECT.entity gives an array of all buses (use array indexing to access one object, ex: OBJECT.entity[0])
+
+    const {
+        data: tripUpdatesData,
+        loading: tripUpdatesLoading,
+        error: tripUpdatesError,
+    } = useFetch(() => fetchTripUpdates());
+
+    const {
+        data: vehiclePositionsData,
+        loading: vehiclePositionsLoading,
+        error: vehiclePositionsError,
+    } = useFetch(() => fetchVehiclePositions());
+
+    console.log(tripUpdatesData?.entity[0]);
+
+    vehiclePositionsData?.entity.forEach((busTrip) => {
+        if (busTrip.vehicle?.trip?.routeId === '51') {
+            console.log(busTrip.vehicle?.position);
+        }
+    })
+
+    console.log(vehiclePositionsData?.entity[0]?.vehicle?.trip);
+    // console.log(tripUpdatesData?.entity[0]?.tripUpdate?.stopTimeUpdate[0].departure);
+
+    return (
+        <View className='flex-1 justify-center items-center bg-[#273854]'>
+            <Text className='text-[40px] font-semibold text-white'>Welcome!</Text>
+        </View>
+
+
+    )
+}
+
+export default index
