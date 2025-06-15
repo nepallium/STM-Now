@@ -1,15 +1,15 @@
-import { View, Text } from 'react-native'
+import {View, Text, FlatList} from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router'
 import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
 import useFetch from '@/services/useFetch';
+import BusCard from "@/components/BusCard";
 
 const index = () => {
     const router = useRouter();
 
     // BASE OBJECT : vehiclePositionsData & tripUpdatesData
     // OBJECT.entity gives an array of all buses (use array indexing to access one object, ex: OBJECT.entity[0])
-    // TEST
 
     const {
         data: tripUpdatesData,
@@ -36,10 +36,16 @@ const index = () => {
 
     return (
         <View className='flex-1 justify-center items-center bg-[#273854]'>
-            <Text className='text-[40px] font-semibold text-white'>Welcome!</Text>
+            {/* MAP */}
+
+            <FlatList
+                data={[{id: 12345, routeId: 64}]}
+                renderItem={({ item }) => (
+                    <BusCard {...item} />
+                )}
+                keyExtractor={(item) => item.id.toString()}
+            />
         </View>
-
-
     )
 }
 
