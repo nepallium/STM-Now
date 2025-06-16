@@ -38,12 +38,14 @@ const index = () => {
         <View className='flex-1 justify-center items-center bg-[#273854]'>
             {/* MAP */}
 
+
             <FlatList
                 data={[{id: 12345, routeId: 64}]}
                 renderItem={({ item }) => (
                     <BusCard {...item} />
                 )}
                 keyExtractor={(item) => item.id.toString()}
+                className="pt-32"
             />
         </View>
     )

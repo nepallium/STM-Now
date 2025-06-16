@@ -55,7 +55,7 @@ const _layout = () => {
                 }}
             />
             <Tabs.Screen
-                name='search'
+                name='nearby'
                 options={{
                     title: "Nearby",
                     headerShown: false,

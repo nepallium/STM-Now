@@ -1,7 +1,6 @@
 import GtfsRealtimeBindings from "gtfs-realtime-bindings";
-// @ts-ignore
-import { API_KEY } from "@env"
 
+const API_KEY = process.env.EXPO_PUBLIC_STM_KEY;
 export const STM_CONFIG = {
     BASE_URL: 'https://api.stm.info/pub/od/gtfs-rt/ic/v2',
     API_KEY,

@@ -1,12 +1,12 @@
-// import { View, Text } from 'react-native'
-// import React from 'react'
+import { View, Text } from 'react-native'
+import React from 'react'
 
-// const nearby = () => {
-//   return (
-//     <View>
-//       <Text>nearby</Text>
-//     </View>
-//   )
-// }
+const nearby = () => {
+  return (
+    <View>
+      <Text>nearby</Text>
+    </View>
+  )
+}
 
-// export default nearby
+export default nearby
