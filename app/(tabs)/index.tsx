@@ -1,12 +1,27 @@
+// <<<<<<< HEAD
 import {View, Text, FlatList} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'expo-router'
 import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
 import useFetch from '@/services/useFetch';
 import BusCard from "@/components/BusCard";
+// =======
+// import { View, Text } from 'react-native'
+// import React, { useEffect } from 'react'
+// import { useRouter } from 'expo-router'
+// import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
+// import useFetch from '@/services/useFetch';
+// // import { sendNotification } from '@/services/busNotification';
+// >>>>>>> temp
 
 const index = () => {
     const router = useRouter();
+
+    // setTimeout( () => {
+    //     useEffect(() => {
+    //     sendNotification();
+    // }, [])}, 1000
+    // )
 
     // BASE OBJECT : vehiclePositionsData & tripUpdatesData
     // OBJECT.entity gives an array of all buses (use array indexing to access one object, ex: OBJECT.entity[0])
