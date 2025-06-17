@@ -12,26 +12,26 @@ const BusCard = ({id, routeId, direction, stop, time}: Bus) => {
 
     return (
         // <Link href={`schedules/${id}`} asChild>
-            <TouchableOpacity className="bg-light-300 w-[100%] h-20 px-2 py-4 flex flex-row justify-between items-center">
-                <View className="flex flex-row gap-3">
-                    <View style={{backgroundColor: BGCOLOR}} className="flex justify-center items-center w-20 h-12">
-                        <Text className="text-black font-bold text-xl">{routeId}</Text>
-                    </View>
-                    <View className="flex flex-col justify-between">
-                        <View className="flex-row gap-0.5 items-center">
-                            <MaterialIcons name="east" size={20} color="black" />
-                            <Text className="text-sm">{direction}</Text>
-                        </View>
-                        <Text className="text-sm">{stop}</Text>
-                    </View>
+        <TouchableOpacity className="bg-light-300 w-[100%] h-20 px-2 py-4 flex flex-row justify-between items-center">
+            <View className="flex flex-row gap-3">
+                <View style={{backgroundColor: BGCOLOR}} className="flex justify-center items-center w-20 h-12">
+                    <Text className="text-black font-bold text-xl">{routeId}</Text>
                 </View>
-                <View className="items-center">
-                    <View className="flex-row items-baseline gap-0.5">
-                        <Text className="text-3xl font-bold leading-none">{time}</Text>
-                        <Text className="text-xs">min</Text>
+                <View className="flex flex-col justify-between">
+                    <View className="flex-row gap-0.5 items-center">
+                        <MaterialIcons name="east" size={20} color="black" />
+                        <Text className="text-sm">{direction}</Text>
                     </View>
+                    <Text className="text-sm">{stop}</Text>
                 </View>
-            </TouchableOpacity>
+            </View>
+            <View className="items-center">
+                <View className="flex-row items-baseline gap-0.5">
+                    <Text className="text-3xl font-bold leading-none">{time}</Text>
+                    <Text className="text-xs">min</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
         // </Link>
     );
 };
