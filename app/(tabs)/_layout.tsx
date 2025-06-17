@@ -1,3 +1,11 @@
+import { Stack } from 'expo-router';
+
+export default function _layout() {
+    return <Stack screenOptions={{ headerShown: false }} />;
+}
+
+
+// OLD
 import { View, Text } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
@@ -5,20 +13,21 @@ import { Tabs } from 'expo-router'
 const TabIcon = ({ focused, title }: any) => {
     if (focused) {
         return (
-            <View className='flex flex-row w-full flex-1 min-w-[172px] min-h-20 mt-9 justify-center items-center rounded-[20] overflow-hidden bg-[#505050]'>
-                <Text className='text-[16px] text-base fond-semibold ml-2 text-white'>{title}</Text>
+            <View className='size-full flex w-[50px] h-full overflow-hidden bg-[#505050]'>
+                <Text className='flex-1 text-[16px] text-base fond-semibold text-white'>{title}</Text>
             </View>
         )
     } else {
         return (
-            <View className='flex flex-row w-full flex-1 min-w-[168px] min-h-20 mt-9 justify-center items-center rounded-[20] overflow-hidden'>
-                <Text className='text-[16px] text-base fond-semibold ml-2 text-white'>{title}</Text>
+            <View className='flex w-full flex-1 min-w-[168px] min-h-10 justify-center items-center overflow-hidden'>
+                <Text className='text-[16px] text-base fond-semibold text-white'>{title}</Text>
             </View>
         )
     }
 }
 
-const _layout = () => {
+// changed to avoid dupli var
+const layout = () => {
     return (
         <Tabs
             screenOptions={{
@@ -33,9 +42,10 @@ const _layout = () => {
                     backgroundColor: '#282828',
                     borderRadius: 20,
                     marginHorizontal: 25,
-                    marginBottom: 50,
-                    height: 70,
+                    marginTop: 25,
+                    height: 50,
                     position: 'absolute',
+                    top: '40%', // taken from h-[40%] of MapScreen
                     borderWidth: 0,
                     borderColor: '#273854',
                 }
@@ -71,4 +81,4 @@ const _layout = () => {
     )
 }
 
-export default _layout
+// export default _layout
