@@ -9,3 +9,5 @@ expo-env.d.ts
 .idea/
 node_modules
 .env
+
+./assets/gtfs_stm

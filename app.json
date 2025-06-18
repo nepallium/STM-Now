@@ -12,7 +12,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.alexhuang.bustracker",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to show your current position.",
+        "UIBackgroundModes": "location"
       }
     },
     "android": {
@@ -26,7 +28,7 @@
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
       ],
-      "package": "com.alexhuang.bustracker"
+      "package": "com.devs.bustracker"
     },
     "web": {
       "bundler": "metro",

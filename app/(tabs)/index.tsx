@@ -7,12 +7,27 @@ import BusCard from "@/components/BusCard";
 import Map from '@/components/Map';
 import registerForNotifications from '@/services/registerForNotifications';
 import sendBusNotification from '@/services/sendBusNotification';
+import {getCurrentLocation} from '@/services/getCurrentLocation'
+import * as Location from "expo-location";
 
 const index = () => {
     registerForNotifications()
 
     const router = useRouter();
     const [activeTab, setActiveTab] = useState<'favorites' | 'nearby'>('favorites');
+
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    useEffect(() => {
+        getCurrentLocation(setLocation, setErrorMsg)
+    }, [])
+
+    let text = 'Waiting...';
+    if (errorMsg) {
+        text = errorMsg;
+    } else if (location) {
+        text = JSON.stringify(location);
+    }
 
     // setTimeout( () => {
     //     useEffect(() => {
