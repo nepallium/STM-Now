@@ -1,6 +1,6 @@
 import { Button, Platform, View, Text, FlatList, TouchableOpacity} from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'expo-router'
+import {Link, useRouter} from 'expo-router'
 import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
 import useFetch from '@/services/useFetch';
 import BusCard from "@/components/BusCard";
@@ -9,6 +9,7 @@ import registerForNotifications from '@/services/registerForNotifications';
 import sendBusNotification from '@/services/sendBusNotification';
 import {getCurrentLocation} from '@/services/getCurrentLocation'
 import * as Location from "expo-location";
+import Nearby from "@/app/(tabs)/nearby";
 
 const index = () => {
     registerForNotifications()
@@ -51,12 +52,13 @@ const index = () => {
     } = useFetch(() => fetchVehiclePositions());
 
     // console.log(tripUpdatesData?.entity[0]);
+    // console.log(vehiclePositionsData?.entity[0].vehicle?.position)
 
-    vehiclePositionsData?.entity.forEach((busTrip : any) => {
-        if (busTrip.vehicle?.trip?.routeId === '51') {
-            // console.log(busTrip.vehicle?.position);
-        }
-    })
+    // vehiclePositionsData?.entity.forEach((busTrip : any) => {
+    //     if (busTrip.vehicle?.trip?.routeId === '51') {
+    //         // console.log(busTrip.vehicle?.position);
+    //     }
+    // })
 
     // console.log(vehiclePositionsData?.entity[0]?.vehicle?.trip);
     // console.log(tripUpdatesData?.entity[0]?.tripUpdate?.stopTimeUpdate[0].departure);
@@ -65,6 +67,14 @@ const index = () => {
         {id: 1, routeId: 215, direction: "Est", stop: "Marcel-Laurin / Poirier", time: 25},
         {id: 2, routeId: 64, direction: "Nord", stop: "Grenet / Poirier", time: 8}
     ]
+
+    const nearbyElement = <Nearby
+        locationAllowed={location !== null}
+        userLat={location?.coords.latitude}
+        userLon={location?.coords.longitude}
+        gtfsData={vehiclePositionsData}
+        radiusKm={1.5}
+    />
 
     return (
         <View className='flex-1 bg-[#273854] flex flex-col gap-4'>
@@ -87,6 +97,7 @@ const index = () => {
                 >
                     <Text style={{ color: 'white' }}>Favorites</Text>
                 </TouchableOpacity>
+
 
                 <TouchableOpacity
                     style={{
@@ -118,7 +129,7 @@ const index = () => {
                 </TouchableOpacity>
             </View>
 
-            {tmpFavorites.length > 0 ?
+            {tmpFavorites.length > 0 && activeTab === 'favorites' ?
                 <FlatList
                     data={tmpFavorites}
                     renderItem={({ item }) => (
@@ -129,7 +140,7 @@ const index = () => {
                     className="flex-1 mx-5"
                 /> :
                 <View className="flex-1 mx-5">
-                    <Text className="text-center font-bold text-4xl text-white">Add a favorite bus line!</Text>
+                    {nearbyElement}
                 </View>
             }
         </View>

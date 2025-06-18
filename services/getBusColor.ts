@@ -49,9 +49,8 @@ const ensureDataLoaded = (): void => {
 };
 
 // Get route color by route_id
-export const getBusColor = (routeId: number): string => {
+export const getBusColor = (routeId: string | undefined): string => {
     ensureDataLoaded();
-    const route = parsedRoutes.find(r => r.route_id === routeId);
-    // console.log(route?.route_color)
+    const route = parsedRoutes.find(r => r.route_id.toString() === routeId);
     return route ? route.route_color : "009EE0"; // default to STM blue
 };
