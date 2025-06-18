@@ -10,6 +10,8 @@ import sendBusNotification from '@/services/sendBusNotification';
 import {getCurrentLocation} from '@/services/getCurrentLocation'
 import * as Location from "expo-location";
 import Nearby from "@/app/(tabs)/nearby";
+import {transit_realtime} from "gtfs-realtime-bindings";
+import IFeedEntity = transit_realtime.IFeedEntity;
 
 const index = () => {
     registerForNotifications()
@@ -63,10 +65,7 @@ const index = () => {
     // console.log(vehiclePositionsData?.entity[0]?.vehicle?.trip);
     // console.log(tripUpdatesData?.entity[0]?.tripUpdate?.stopTimeUpdate[0].departure);
 
-    const tmpFavorites = [
-        {id: 1, routeId: 215, direction: "Est", stop: "Marcel-Laurin / Poirier", time: 25},
-        {id: 2, routeId: 64, direction: "Nord", stop: "Grenet / Poirier", time: 8}
-    ]
+    const tmpFavorites = vehiclePositionsData?.entity.slice(0, 2)
 
     const nearbyElement = <Nearby
         locationAllowed={location !== null}
@@ -129,11 +128,11 @@ const index = () => {
                 </TouchableOpacity>
             </View>
 
-            {tmpFavorites.length > 0 && activeTab === 'favorites' ?
+            {tmpFavorites && tmpFavorites.length > 0 && activeTab === 'favorites' ?
                 <FlatList
                     data={tmpFavorites}
                     renderItem={({ item }) => (
-                        <BusCard {...item} />
+                        <BusCard {...(item as IFeedEntity)} />
                     )}
                     keyExtractor={(item) => item.id.toString()}
                     ItemSeparatorComponent={() => <View className="h-7"/>}
