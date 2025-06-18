@@ -1,21 +1,16 @@
-// <<<<<<< HEAD
-import {View, Text, FlatList, TouchableOpacity} from 'react-native'
+import { Button, Platform, View, Text, FlatList, TouchableOpacity} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
 import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
 import useFetch from '@/services/useFetch';
 import BusCard from "@/components/BusCard";
 import Map from '@/components/Map';
-// =======
-// import { View, Text } from 'react-native'
-// import React, { useEffect } from 'react'
-// import { useRouter } from 'expo-router'
-// import { fetchTripUpdates, fetchVehiclePositions } from '@/services/api';
-// import useFetch from '@/services/useFetch';
-// // import { sendNotification } from '@/services/busNotification';
-// >>>>>>> temp
+import registerForNotifications from '@/services/registerForNotifications';
+import sendBusNotification from '@/services/sendBusNotification';
 
 const index = () => {
+    registerForNotifications()
+
     const router = useRouter();
     const [activeTab, setActiveTab] = useState<'favorites' | 'nearby'>('favorites');
 
@@ -52,8 +47,8 @@ const index = () => {
     // console.log(tripUpdatesData?.entity[0]?.tripUpdate?.stopTimeUpdate[0].departure);
 
     const tmpFavorites = [
-    {id: 1, routeId: 215, direction: "Est", stop: "Marcel-Laurin / Poirier", time: 25},
-    {id: 2, routeId: 64, direction: "Nord", stop: "Grenet / Poirier", time: 8}
+        {id: 1, routeId: 215, direction: "Est", stop: "Marcel-Laurin / Poirier", time: 25},
+        {id: 2, routeId: 64, direction: "Nord", stop: "Grenet / Poirier", time: 8}
     ]
 
     return (
@@ -91,19 +86,33 @@ const index = () => {
                 >
                     <Text style={{ color: 'white' }}>Nearby</Text>
                 </TouchableOpacity>
-            </View>
 
+                {/* NOTIFICATION TEST BUTTON, DELETE TOUCHABLE OPACITY TO FIX MENU */}
+                <TouchableOpacity
+                    onPress={async () => {
+                        await sendBusNotification({
+                                busNumber: "XXX",
+                                busName: "Bus Name",
+                                intersection: "Street 1/Street 2",
+                                estimatedTime: "X minutes"},
+                            () => {});
+                        console.log("Notification sent!")
+                    }}
+                >
+                    <Text>Click for notif</Text>
+                </TouchableOpacity>
+            </View>
 
             {tmpFavorites.length > 0 ?
                 <FlatList
-                data={tmpFavorites}
-                renderItem={({ item }) => (
-                    <BusCard {...item} />
-                )}
-                keyExtractor={(item) => item.id.toString()}
-                ItemSeparatorComponent={() => <View className="h-7"/>}
-                className="flex-1 mx-5"
-            /> :
+                    data={tmpFavorites}
+                    renderItem={({ item }) => (
+                        <BusCard {...item} />
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                    ItemSeparatorComponent={() => <View className="h-7"/>}
+                    className="flex-1 mx-5"
+                /> :
                 <View className="flex-1 mx-5">
                     <Text className="text-center font-bold text-4xl text-white">Add a favorite bus line!</Text>
                 </View>

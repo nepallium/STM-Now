@@ -4,22 +4,21 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {Link} from "expo-router";
 import {MaterialIcons} from "@expo/vector-icons";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import {getBusColor} from "@/services/getBusColor";
 
 const BusCard = ({id, routeId, direction, stop, time}: Bus) => {
-    const isFrequent = false; // used for determining background color
-    const BGCOLOR = isFrequent ? '#7a1f7e' : '#8ed0eb';
-    // or blue : #0d9ddb
+    const BGCOLOR = getBusColor(routeId);
 
     return (
         // <Link href={`schedules/${id}`} asChild>
         <TouchableOpacity className="bg-light-300 w-[100%] h-20 px-2 py-4 flex flex-row justify-between items-center">
             <View className="flex flex-row gap-3">
-                <View style={{backgroundColor: BGCOLOR}} className="flex justify-center items-center w-20 h-12">
-                    <Text className="text-black font-bold text-xl">{routeId}</Text>
+                <View style={{backgroundColor: `#${BGCOLOR}`}} className="flex justify-center items-center w-20 h-12">
+                    <Text className="text-white font-bold text-xl">{routeId}</Text>
                 </View>
                 <View className="flex flex-col justify-between">
                     <View className="flex-row gap-0.5 items-center">
-                        <MaterialIcons name="east" size={20} color="black" />
+                        <MaterialIcons name="east" size={20} color="black"/>
                         <Text className="text-sm">{direction}</Text>
                     </View>
                     <Text className="text-sm">{stop}</Text>
