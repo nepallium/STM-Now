@@ -4,7 +4,8 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {Link} from "expo-router";
 import {MaterialIcons} from "@expo/vector-icons";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import {getBusColor} from "@/services/getBusColor";
+import getBusColor from "../services/getBusColor";
+import getStopName from "../services/getStopName";
 import {transit_realtime} from "gtfs-realtime-bindings";
 import IFeedEntity = transit_realtime.IFeedEntity;
 
@@ -27,8 +28,7 @@ const BusCard = (entity: IFeedEntity) => {
                         {/*TODO*/}
                         <Text className="text-sm">East</Text>
                     </View>
-                    {/*TODO*/}
-                    <Text className="text-sm">Street 1 / Street 2</Text>
+                    <Text className="text-sm">{getStopName(vehicle?.stopId)}</Text>
                 </View>
             </View>
             <View className="items-center">

@@ -33,7 +33,6 @@ const Nearby = ({locationAllowed, userLat, userLon, gtfsData, radiusKm}: Props) 
                     )}
                     keyExtractor={(item) => item.id.toString()}
                     ItemSeparatorComponent={() => <View className="h-7"/>}
-                    className="flex-1 mx-5"
                 /> :
                 // TODO
                 <Text>Cannot show nearby buses because location has been disabled</Text>

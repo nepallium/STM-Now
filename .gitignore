@@ -10,5 +10,5 @@ expo-env.d.ts
 node_modules
 .env
 
-assets/gtfs_stm/
+assets/unused_gtfs/
 interfaces/GTFS.d.ts

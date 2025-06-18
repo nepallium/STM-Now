@@ -38,7 +38,7 @@ const parseRoutesData = (): void => {
         return row as BusRowData_routes;
     });
 
-    console.log(`Loaded ${parsedRoutes.length} routes`);
+    // console.log(`Loaded ${parsedRoutes.length} routes`);
 };
 
 // Initialize data on first access
@@ -49,7 +49,7 @@ const ensureDataLoaded = (): void => {
 };
 
 // Get route color by route_id
-export const getBusColor = (routeId: string | undefined): string => {
+export default function getBusColor (routeId: string | undefined): string {
     ensureDataLoaded();
     const route = parsedRoutes.find(r => r.route_id.toString() === routeId);
     return route ? route.route_color : "009EE0"; // default to STM blue
