@@ -11,5 +11,4 @@ export interface Bus {
 
 export interface BusWithDistance extends IFeedEntity {
     distanceKm: number;
-    distanceMeters: number;
 }

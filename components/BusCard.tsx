@@ -6,14 +6,19 @@ import {MaterialIcons} from "@expo/vector-icons";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import getBusColor from "../services/getBusColor";
 import getStopName from "../services/getStopName";
+import useArrivalTime from "../services/useArrivalTime";
 import {transit_realtime} from "gtfs-realtime-bindings";
 import IFeedEntity = transit_realtime.IFeedEntity;
 
-const BusCard = (entity: IFeedEntity) => {
-    const vehicle = entity.vehicle;
+const BusCard = (entry: IFeedEntity) => {
+    const vehicle = entry.vehicle;
     const trip = vehicle?.trip;
     const routeId = trip?.routeId ? trip?.routeId : "N/A";
     const BGCOLOR = routeId !== "N/A" ? getBusColor(routeId) : "009EE0";
+
+    // trip arrival time
+    const tripId = trip?.tripId;
+    const stopId= vehicle?.stopId;
 
     return (
         // <Link href={`schedules/${id}`} asChild>
@@ -28,13 +33,12 @@ const BusCard = (entity: IFeedEntity) => {
                         {/*TODO*/}
                         <Text className="text-sm">East</Text>
                     </View>
-                    <Text className="text-sm">{getStopName(vehicle?.stopId)}</Text>
+                    <Text className="text-sm">{getStopName(stopId)}</Text>
                 </View>
             </View>
             <View className="items-center">
                 <View className="flex-row items-baseline gap-0.5">
-                    {/*TODO*/}
-                    <Text className="text-3xl font-bold leading-none">18</Text>
+                    <Text className="text-3xl font-bold leading-none">{useArrivalTime(tripId, stopId)}</Text>
                     <Text className="text-xs">min</Text>
                 </View>
             </View>

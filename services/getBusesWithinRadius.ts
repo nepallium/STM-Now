@@ -31,7 +31,6 @@ Rural areas: 3-5 km
 
 interface BusWithDistance extends IFeedEntity {
     distanceKm: number;
-    distanceMeters: number;
 }
 
 export default function getBusesWithinRadius(
@@ -50,7 +49,6 @@ export default function getBusesWithinRadius(
                 nearbyBuses.push({
                     ...entity,
                     distanceKm: distance,
-                    distanceMeters: Math.round(distance * 1000),
                 });
             }
         }

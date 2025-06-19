@@ -28,7 +28,7 @@ const ensureDataLoaded = () : void => {
     }
 }
 
-export default function getStopName(stopId: string | undefined) {
+export default function getStopName(stopId: string | null | undefined) {
     ensureDataLoaded();
     let stopName = parsedStops.find(stop => stop.stop_id === stopId)?.stop_name;
 
