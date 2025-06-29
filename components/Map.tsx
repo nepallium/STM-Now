@@ -1,10 +1,21 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import * as Location from "expo-location";
 import { WebView } from 'react-native-webview';
 import { View } from 'react-native';
+import { getCurrentLocation } from '@/services/getCurrentLocation';
 
 const MapScreen = () => {
+  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+      const [errorMsg, setErrorMsg] = useState<string | null>(null);
+      useEffect(() => {
+          getCurrentLocation(setLocation, setErrorMsg)
+      }, [])
+
+  let latitude = location?.coords.latitude || "45.5"
+  let longitude = location?.coords.longitude || "-73.55"
+
   const mapUrl =
-      'https://www.openstreetmap.org/export/embed.html?bbox=-73.6,45.4,-73.5,45.6&layer=mapnik&marker=45.5,-73.55';
+      `https://www.openstreetmap.org/export/embed.html?bbox=-73.6,45.4,-73.5,45.6&layer=mapnik&marker=${latitude},${longitude}`;
 
   return (
       <View className="flex-1">
