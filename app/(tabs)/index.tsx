@@ -12,7 +12,9 @@ import * as Location from "expo-location";
 import Nearby from "@/app/(tabs)/nearby";
 import {transit_realtime} from "gtfs-realtime-bindings";
 import IFeedEntity = transit_realtime.IFeedEntity;
-import BusCardsList from "@/components/BusCardsList";
+// import BusCardsList from "@/components/BusCardsList";
+import getBusesWithinRadius from '@/services/getBusesWithinRadius';
+import { BusWithStop } from '@/interfaces/interfaces';
 
 const index = () => {
     registerForNotifications()
@@ -56,7 +58,7 @@ const index = () => {
     //     }
     // })
 
-    let tmpFavorites
+    let tmpFavorites: BusWithStop[] = []
     // if (vehiclePositionsData && tripUpdatesData) {
     //     // tmpFavorites = [
     //     //     {positionData: vehiclePositionsData?.entity[0], tripData: tripUpdatesData?.entity[0]},
@@ -68,16 +70,32 @@ const index = () => {
     //     ]
     // }
 
-    tmpFavorites = vehiclePositionsData?.entity.slice(0, 2)
+    // tmpFavorites = vehiclePositionsData?.entity.slice(0, 2)
 
 
     const nearbyElement = <Nearby
         locationAllowed={location !== null}
         userLat={location?.coords.latitude}
         userLon={location?.coords.longitude}
-        gtfsData={vehiclePositionsData}
-        radiusKm={1.5}
+        gtfsData={tripUpdatesData}
+        radiusKm={0.5}
     />
+
+    if (tripUpdatesData) {
+    // console.log(
+        getBusesWithinRadius(location?.coords.latitude || 0, location?.coords.longitude || 0, tripUpdatesData, 0.5)
+    // )
+    }
+    // DISPLAY NEARBY STOPS -- TEST
+    // useEffect(() => {
+    //     if (location?.coords.latitude && location.coords.longitude) {
+    //         const nearbyStops = getBusesWithinRadius(location?.coords.latitude, location?.coords.longitude, 0.5)
+
+    //         nearbyStops.forEach((stop) => {
+    //             console.log("STOP: ", stop)
+    //         })
+    //     }
+    // }, [location])
 
     return (
         <View className='flex-1 bg-[#273854] flex flex-col gap-4'>
@@ -132,12 +150,16 @@ const index = () => {
                 </TouchableOpacity>
             </View>
 
-            {tmpFavorites && tmpFavorites.length > 0 && activeTab === 'favorites' ?
-                <BusCardsList data={tmpFavorites} /> :
+            {/* {tmpFavorites && tmpFavorites.length > 0 && activeTab === 'favorites' ?
+                // <BusCardsList data={tmpFavorites} /> :
+                
                 <View className="flex-1">
                     {nearbyElement}
                 </View>
-            }
+            } */}
+            <View className="flex-1">
+                    {nearbyElement}
+                </View>
         </View>
     )
 }

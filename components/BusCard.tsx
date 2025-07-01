@@ -9,16 +9,16 @@ import getStopName from "../services/getStopName";
 import useArrivalTime from "../services/useArrivalTime";
 import {transit_realtime} from "gtfs-realtime-bindings";
 import IFeedEntity = transit_realtime.IFeedEntity;
+import { BusWithDistance, BusWithStop } from '@/interfaces/interfaces';
 
-const BusCard = (entry: IFeedEntity) => {
-    const vehicle = entry.vehicle;
-    const trip = vehicle?.trip;
-    const routeId = trip?.routeId ? trip?.routeId : "N/A";
+const BusCard = (entry: BusWithStop) => {
+    const routeId = entry.busId
     const BGCOLOR = routeId !== "N/A" ? getBusColor(routeId) : "009EE0";
 
     // trip arrival time
-    const tripId = trip?.tripId;
-    const stopId= vehicle?.stopId;
+    const stopId = entry.stopId
+    const now = Date.now()
+    const ETA = Math.round((Number.parseFloat(entry.time.toString()) - now) / 60000)
 
     return (
         // <Link href={`schedules/${id}`} asChild>
@@ -31,14 +31,14 @@ const BusCard = (entry: IFeedEntity) => {
                     <View className="flex-row gap-0.5 items-center">
                         <MaterialIcons name="east" size={20} color="black"/>
                         {/*TODO*/}
-                        <Text className="text-sm">East</Text>
+                        <Text className="text-sm">{entry.direction == 0 ? "East" : "West"}</Text>
                     </View>
-                    <Text className="text-sm">{getStopName(stopId)}</Text>
+                    <Text className="text-sm">{entry.stopName}</Text>
                 </View>
             </View>
             <View className="items-center">
                 <View className="flex-row items-baseline gap-0.5">
-                    <Text className="text-3xl font-bold leading-none">{useArrivalTime(tripId, stopId)}</Text>
+                    <Text className="text-3xl font-bold leading-none">{ETA}</Text>
                     <Text className="text-xs">min</Text>
                 </View>
             </View>

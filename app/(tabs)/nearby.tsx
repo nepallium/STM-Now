@@ -3,11 +3,12 @@ import React from 'react'
 import getBusesWithinRadius from "@/services/getBusesWithinRadius";
 import BusCard from "@/components/BusCard";
 import {transit_realtime} from "gtfs-realtime-bindings";
+// @ts-ignore
 import {DataEntity} from "@/interfaces/GTFS";
 import FeedMessage = transit_realtime.FeedMessage;
-import {BusWithDistance} from "@/interfaces/interfaces";
+import {BusWithStop} from "@/interfaces/interfaces";
 import IFeedEntity = transit_realtime.IFeedEntity;
-import BusCardsList from "@/components/BusCardsList";
+// import BusCardsList from "@/components/BusCardsList";
 
 interface Props {
     locationAllowed: boolean;
@@ -18,22 +19,22 @@ interface Props {
 }
 
 const Nearby = ({locationAllowed, userLat, userLon, gtfsData, radiusKm}: Props) => {
-    let nearbyBuses: BusWithDistance[] | null = null;
+    let nearbyStops: BusWithStop[] | null = null;
     if (locationAllowed && userLat != null && userLon != null && gtfsData) {
-        nearbyBuses = getBusesWithinRadius(userLat, userLon, gtfsData, radiusKm);
+        nearbyStops = getBusesWithinRadius(userLat, userLon, gtfsData, radiusKm);
     }
 
     return (
         <>
-            {nearbyBuses ?
+            {nearbyStops ?
                 // TODO there will be duplis bc of two bus directions
                 // <BusCardsList data={nearbyBuses} /> :
                 <FlatList
-                    data={nearbyBuses}
+                    data={nearbyStops}
                     renderItem={({ item }) => (
-                        <BusCard {...(item as IFeedEntity)} />
+                        <BusCard {...(item as BusWithStop)} />
                     )}
-                    keyExtractor={(item) => item.id.toString()}
+                    keyExtractor={(item) => nearbyStops.indexOf(item).toString()}
                     ItemSeparatorComponent={() => <View className="h-7"/>}
                     className="flex-1 mx-5"
                 /> :

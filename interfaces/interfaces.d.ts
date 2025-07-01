@@ -12,3 +12,12 @@ export interface Bus {
 export interface BusWithDistance extends IFeedEntity {
     distanceKm: number;
 }
+
+export interface BusWithStop {
+    busId: string,
+    stopName: String,
+    time: String,
+    distanceKm: number,
+    direction: number,
+    stopId: String,
+}
