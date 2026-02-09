@@ -9,3 +9,6 @@ expo-env.d.ts
 .idea/
 node_modules
 .env
+
+assets/unused_gtfs/
+interfaces/GTFS.d.ts
